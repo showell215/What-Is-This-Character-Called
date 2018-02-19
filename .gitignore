@@ -1,3 +1,4 @@
-.git/
+nginx.conf
 getMapping2.js
 map.json
+nginx/
