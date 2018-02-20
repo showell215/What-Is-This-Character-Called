@@ -9,8 +9,8 @@
       },
       "proxies": {
         "/ucd/": {
-          "origin": "https://www.unicode.org/Public/UCD/latest/"
-        }
+          "origin": "https://www.unicode.org/Public/UCD/latest"
+      }
      }
   }
 }
