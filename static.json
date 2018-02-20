@@ -1,16 +1,16 @@
 {
-  "clean_urls": true,
-  "logging": {
-    "access": true,
-    "error": "warn",
+    "clean_urls": true,
+    "logging": {
+        "access": true,
+        "error": "warn"
+    },
     "https_only": true,
-      "routes": {
+    "routes": {
         "/**": "index.html"
-      },
-      "proxies": {
+    },
+    "proxies": {
         "/ucd/": {
-          "origin": "https://www.unicode.org/Public/UCD/latest/ucd"
-      }
-     }
-  }
+            "origin": "https://www.unicode.org/Public/UCD/latest/ucd"
+        }
+    }
 }
