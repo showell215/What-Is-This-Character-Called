@@ -8,8 +8,8 @@
         "/**": "index.html"
       },
       "proxies": {
-        "/unicodedata/": {
-          "origin": "https://www.unicode.org/Public/UCD/latest/ucd"
+        "/ucd/": {
+          "origin": "https://www.unicode.org/Public/UCD/latest/"
         }
      }
   }

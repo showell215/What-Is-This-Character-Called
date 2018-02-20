@@ -49,7 +49,7 @@
         // Load data from Unicode
         var http = new XMLHttpRequest();
         http.onreadystatechange = createMapping;
-        http.open('GET', '/unicodedata/UnicodeData.txt;');
+        http.open('GET', '/ucd/UnicodeData.txt;');
         http.send();
 
         var charNameElement = document.querySelector('.char-name'),
