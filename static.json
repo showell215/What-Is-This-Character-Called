@@ -1,0 +1,16 @@
+{
+  "clean_urls": true,
+  "logging": {
+    "access": true,
+    "error": "warn",
+    "https_only": true,
+      "routes": {
+        "/**": "index.html"
+      },
+      "proxies": {
+        "/unicodedata/": {
+          "origin": "https://www.unicode.org/Public/UCD/latest/ucd/"
+        }
+     }
+  }
+}
