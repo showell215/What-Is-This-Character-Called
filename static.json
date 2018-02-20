@@ -9,7 +9,7 @@
       },
       "proxies": {
         "/unicodedata/": {
-          "origin": "https://www.unicode.org/Public/UCD/latest/ucd/"
+          "origin": "https://www.unicode.org/Public/UCD/latest/ucd"
         }
      }
   }
