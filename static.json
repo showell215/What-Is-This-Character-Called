@@ -1,4 +1,5 @@
 {
+    "root": "public/",
     "clean_urls": true,
     "logging": {
         "access": true,
