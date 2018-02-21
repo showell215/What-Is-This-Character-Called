@@ -19,6 +19,15 @@ function getFourDigitHex (num) {
     return ('0000' + (+num).toString(16)).substr(-4);
 }
 
+// init code that depends on elements
+function init () {
+    charNameElement = document.querySelector('.char-name');
+    charSymbolElement = document.querySelector('.char-symbol');
+    loader = document.querySelector('.loader');
+    window.addEventListener('keypress', handleKeyPress);
+}
+
+// init code that does not depened on elements
 var charNameElement, charSymbolElement, loader,
     shrug = '¯\\_(ツ)_/¯',
     charMap = {},
@@ -28,9 +37,9 @@ http.onreadystatechange = createMapping;
 http.open('GET', '/ucd/UnicodeData.txt');
 http.send();
 
-document.addEventListener('DOMContentLoaded', function () {
-    charNameElement = document.querySelector('.char-name');
-    charSymbolElement = document.querySelector('.char-symbol');
-    loader = document.querySelector('.loader');
-    window.addEventListener('keypress', handleKeyPress);
-});
+// init page, or wait for DOMContentLoaded to init page
+if (document.readyState !== 'loading') {
+    init();
+} else {
+    document.addEventListener('DOMContentLoaded', init);
+}
