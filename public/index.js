@@ -6,7 +6,8 @@ function createMapping () {
                 var charCodeData = charCodeItem.split(';');    
                 charMap[charCodeData[0].toLowerCase()] = charCodeData[1];
             });
-            loader.innerText = 'DONE!!';
+            loader.classList.add('hide');
+            mainContent.classList.remove('.hide');
     }
 }
 
@@ -24,11 +25,12 @@ function init () {
     charNameElement = document.querySelector('.char-name');
     charSymbolElement = document.querySelector('.char-symbol');
     loader = document.querySelector('.loader');
+    mainContent = document.querySelector('.main-content');
     window.addEventListener('keypress', handleKeyPress);
 }
 
 // init code that does not depened on elements
-var charNameElement, charSymbolElement, loader,
+var charNameElement, charSymbolElement, loader, mainContent,
     shrug = '¯\\_(ツ)_/¯',
     charMap = {},
     http = new XMLHttpRequest();
