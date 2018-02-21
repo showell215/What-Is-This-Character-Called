@@ -7,7 +7,7 @@ function createMapping () {
                 charMap[charCodeData[0].toLowerCase()] = charCodeData[1];
             });
             loader.classList.add('hide');
-            mainContent.classList.remove('.hide');
+            mainContent.classList.remove('hide');
     }
 }
 
