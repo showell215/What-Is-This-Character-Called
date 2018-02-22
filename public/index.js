@@ -17,7 +17,7 @@ function handleInputData (event) {
     console.log(this.value);
     if (char) {
         this.value = char;
-        setCharNameDisplay(char, char.charPointAt(0));
+        setCharNameDisplay(char, char.codePointAt(0));
         this.value = '';
     }
 }
@@ -34,7 +34,7 @@ function handleInputFocusChange (event) {
 
 function handleKeyPress (event) {
     if (!inputFocused) {
-        setCharNameDisplay(event.key, event.key.charPointAt(0));
+        setCharNameDisplay(event.key, event.key.codePointAt(0));
     }
 }
 
@@ -50,7 +50,7 @@ function getFourDigitHex (num) {
     }
 
     return num;
-
+}
 // init code that depends on elements
 function init () {
     charNameElement = document.querySelector('.char-name');
