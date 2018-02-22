@@ -11,9 +11,36 @@ function createMapping () {
     }
 }
 
+function handleInputData (event) {
+    var char = event.data || this.value;
+    console.log(event);
+    console.log(this.value);
+    if (char) {
+        this.value = char;
+        setCharNameDisplay(char, char.charCodeAt(0));
+        this.value = '';
+    }
+}
+
+function handleInputFocusChange (event) {
+    inputFocused = !inputFocused;
+    event.target.value = '';
+}
+// 
+// function handleInputFocusOut (event) {
+//     inputFocused = false;
+//     event.target.value = '';
+// }
+
 function handleKeyPress (event) {
-    charSymbolElement.innerText = event.key;
-    charNameElement.innerText = charMap[getFourDigitHex(event.charCode)] || shrug;
+    if (!inputFocused) {
+        setCharNameDisplay(event.key, event.charCode);
+    }
+}
+
+function setCharNameDisplay (char, charCode) {
+    charSymbolElement.innerText = char;
+    charNameElement.innerText = charMap[getFourDigitHex(charCode)] || shrug;
 }
 
 function getFourDigitHex (num) {
@@ -26,11 +53,16 @@ function init () {
     charSymbolElement = document.querySelector('.char-symbol');
     loader = document.querySelector('.loader');
     mainContent = document.querySelector('.main-content');
+    charInputElement = document.querySelector('#char-input');
+    charInputElement.addEventListener('input', handleInputData);
+    charInputElement.addEventListener('focus', handleInputFocusChange);
+    charInputElement.addEventListener('focusout', handleInputFocusChange);
     window.addEventListener('keypress', handleKeyPress);
 }
 
 // init code that does not depened on elements
-var charNameElement, charSymbolElement, loader, mainContent,
+var charNameElement, charSymbolElement, loader, mainContent, charInputElement,
+    inputFocused = false,
     shrug = '¯\\_(ツ)_/¯',
     charMap = {},
     http = new XMLHttpRequest();
