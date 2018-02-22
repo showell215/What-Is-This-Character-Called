@@ -11,29 +11,26 @@ function createMapping () {
     }
 }
 
+function isMultiByteChar (string) {
+    return /[\uD800-\uDFFF]/.test(string);
+}
+
 function handleInputData (event) {
-    var char = event.data || this.value;
-    console.log(event);
-    console.log(this.value);
-    if (char) {
-        this.value = char;
-        setCharNameDisplay(char, char.codePointAt(0));
+    var input = event.data || this.value;
+
+    if (input && typeof input === "string" && input.length) {
+        input = this.value = isMultiByteChar(input) ? input : input.substring(0, 1);
+        setCharNameDisplay(input, input.codePointAt(0));
         this.value = '';
     }
 }
 
 function handleInputFocusChange (event) {
-    inputFocused = !inputFocused;
     event.target.value = '';
 }
-// 
-// function handleInputFocusOut (event) {
-//     inputFocused = false;
-//     event.target.value = '';
-// }
 
 function handleKeyPress (event) {
-    if (!inputFocused) {
+    if (document.activeElement !== charInputElement) {
         setCharNameDisplay(event.key, event.key.codePointAt(0));
     }
 }
@@ -66,7 +63,6 @@ function init () {
 
 // init code that does not depened on elements
 var charNameElement, charSymbolElement, loader, mainContent, charInputElement,
-    inputFocused = false,
     shrug = '¯\\_(ツ)_/¯',
     charMap = {},
     http = new XMLHttpRequest();
