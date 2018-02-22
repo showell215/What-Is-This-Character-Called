@@ -17,7 +17,7 @@ function handleInputData (event) {
     console.log(this.value);
     if (char) {
         this.value = char;
-        setCharNameDisplay(char, char.charCodeAt(0));
+        setCharNameDisplay(char, char.charPointAt(0));
         this.value = '';
     }
 }
@@ -34,18 +34,22 @@ function handleInputFocusChange (event) {
 
 function handleKeyPress (event) {
     if (!inputFocused) {
-        setCharNameDisplay(event.key, event.charCode);
+        setCharNameDisplay(event.key, event.key.charPointAt(0));
     }
 }
 
-function setCharNameDisplay (char, charCode) {
+function setCharNameDisplay (char, charPoint) {
     charSymbolElement.innerText = char;
-    charNameElement.innerText = charMap[getFourDigitHex(charCode)] || shrug;
+    charNameElement.innerText = charMap[getFourDigitHex(charPoint)] || shrug;
 }
 
 function getFourDigitHex (num) {
-    return ('0000' + (+num).toString(16)).substr(-4);
-}
+    num = num.toString(16);
+    if (num.length < 4) {
+        num = ('0000' + num).substr(-4);
+    }
+
+    return num;
 
 // init code that depends on elements
 function init () {
