@@ -25,6 +25,20 @@ body {
     border: 4px #3a3434 solid;
     text-align: center;
 }
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #7784a0;
+    text-align: center;
+}
+.github-img {
+    height: 25px;
+    position: relative;
+    top: 6px;
+}
 /* Loader from https://projects.lukehaas.me/css-loaders/ */
 .loader,
 .loader:before,
