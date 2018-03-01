@@ -4,7 +4,7 @@ body {
     font-family: 'Work Sans', sans-serif;
 }
 .hide { display: none; }
-.main-content { padding: 40px; text-align: center; }
+.main-content { padding: 20px; text-align: center; }
 .char-name { font-style: italic; }
 .char-symbol {
     font-size: 3rem;
