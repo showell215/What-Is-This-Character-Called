@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-dire: column;
+    flex-direction: column;
 }
 .hide { display: none; }
 .main-content { padding: 20px; text-align: center; }
