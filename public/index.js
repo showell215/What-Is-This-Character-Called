@@ -77,7 +77,7 @@ var charNameElement, charSymbolElement, loader, mainContent, charInputElement,
     http = new XMLHttpRequest();
 
 http.onreadystatechange = createMapping;
-http.open('GET', '/ucd/UnicodeData.txt');
+http.open('GET', '/ucd');
 http.send();
 
 // init page, or wait for DOMContentLoaded to init page
