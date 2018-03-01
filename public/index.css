@@ -2,17 +2,21 @@ body {
     background: #2a5d7f;
     color: white;
     font-family: 'Work Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-dire: column;
 }
 .hide { display: none; }
 .main-content { padding: 20px; text-align: center; }
 .char-name { font-style: italic; }
 .char-symbol {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin: 0;
 }
 .char-display {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -26,13 +30,10 @@ body {
     text-align: center;
 }
 footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
     padding: 1rem;
     background-color: #7784a0;
     text-align: center;
+    margin-top: auto;
 }
 .github-img {
     height: 25px;
