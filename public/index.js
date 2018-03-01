@@ -1,3 +1,6 @@
+var input = '';
+
+// convert raw unicode data to a mapping by character code
 function createMapping () {
     if (this.readyState == 4 && this.status == 200) {
         http.responseText
@@ -16,12 +19,17 @@ function isMultiByteChar (string) {
 }
 
 function handleInputData (event) {
-    var input = event.data || this.value;
+    // pasted input is coverd by the 'paste' event. Don't let input event duplicate it 
+    if (event.inputType === 'insertFromPaste') {
+        this.value = input || '';
+        return;
+    }
 
-    if (input && typeof input === "string" && input.length) {
+    input = event.clipboardData ? event.clipboardData.getData('Text') : event.data;
+
+    if (input && typeof input === 'string' && input.length) {
         input = this.value = isMultiByteChar(input) ? input : input.substring(0, 1);
         setCharNameDisplay(input, input.codePointAt(0));
-        this.value = '';
     }
 }
 
@@ -56,6 +64,7 @@ function init () {
     mainContent = document.querySelector('.main-content');
     charInputElement = document.querySelector('#char-input');
     charInputElement.addEventListener('input', handleInputData);
+    charInputElement.addEventListener('paste', handleInputData);
     charInputElement.addEventListener('focus', handleInputFocusChange);
     charInputElement.addEventListener('focusout', handleInputFocusChange);
     window.addEventListener('keypress', handleKeyPress);
