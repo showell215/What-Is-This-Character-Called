@@ -7,7 +7,6 @@
     },
     "https_only": false,
     "routes": {
-        "/favicon": "favicon.ico"
         "/**": "index.html"
     },
     "proxies": {
