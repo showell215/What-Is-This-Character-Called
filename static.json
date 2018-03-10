@@ -5,7 +5,7 @@
         "access": true,
         "error": "warn"
     },
-    "https_only": true,
+    "https_only": false,
     "routes": {
         "/**": "index.html"
     },
