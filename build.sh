@@ -30,5 +30,4 @@ cp  public/*.svg dist/
 cp  public/*.ico dist/
 cp  public/*.xml dist/
 cp  public/site.webmanifest dist/
-uglifyjs -m -c toplevel=false,unused=false --verbose --warn ./public/scripts/**/*.js ./public/scripts/*.js -o ./dist/index.min.js
-# uglifyjs -m -c toplevel=false,unused=false --verbose --warn ./vendor/js/*.js -o ./dist/polyfill.min.js
+uglifyjs -cm toplevel --verbose --warn ./public/scripts/**/*.js ./public/scripts/*.js -o ./dist/index.min.js
