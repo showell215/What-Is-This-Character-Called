@@ -20,7 +20,9 @@ fi
 
 mkdir dist
 cp public/index.html dist/
-cp -r public/ucd dist/
+if [ -d public/ucd ]; then
+    cp -r public/ucd dist/
+fi
 cp -r public/css dist/
 cp -r public/img dist/
 cp  public/*.png dist/
