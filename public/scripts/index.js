@@ -9,8 +9,8 @@ function createMapping () {
                 var charCodeData = charCodeItem.split(';');    
                 charMap[charCodeData[0].toLowerCase()] = charCodeData[1];
             });
-            loader.classList.add('hide');
-            mainContent.classList.remove('hide');
+        loader.classList.add('hide');
+        mainContent.classList.remove('hide');
     }
 }
 

@@ -2,3 +2,5 @@ public/ucd
 nginx.conf
 mime.types
 *.log
+node_modules
+dist

@@ -1,0 +1,17 @@
+before_install:
+- npm install -g npm@latest
+install: npm install
+before_script:
+- chmod +x build.sh
+- chmod +x deployPrep.sh
+script:
+- npm run build
+before_deploy:
+- npm run deployPrep
+- sed -i 's/dist/#dist/' \.gitignore
+- cd ./dist
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  api_key: "$HEROKU_API_KEY"
+  app: floating-bastion-37662

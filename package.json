@@ -1,0 +1,26 @@
+{
+  "name": "whats-that-symbol-called",
+  "version": "1.0.0",
+  "description": "Input any character to see its official Unicode name",
+  "scripts": {
+    "build": "./build.sh",
+    "deployPrep": "./deployPrep.sh"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "htmlhint": "^0.10.1",
+    "stylelint": "^9.7.1",
+    "stylelint-config-standard": "^18.2.0",
+    "uglify-js": "^3.4.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/showell215/What-Is-This-Character-Called.git"
+  },
+  "author": "Steven Howell",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/showell215/What-Is-This-Character-Called/issues"
+  },
+  "homepage": "https://github.com/showell215/What-Is-This-Character-Called#readme"
+}
