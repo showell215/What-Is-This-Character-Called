@@ -14,4 +14,4 @@ deploy:
   skip_cleanup: true
   provider: heroku
   api_key: "$HEROKU_API_KEY"
-  app: floating-bastion-37662
+  app: whatsthatcharactercalled
