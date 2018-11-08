@@ -1,7 +1,4 @@
+public/ucd
 nginx.conf
-getMapping2.js
-map.json
-nginx/
-base.nginx.conf
 mime.types
-bin/
+*.log

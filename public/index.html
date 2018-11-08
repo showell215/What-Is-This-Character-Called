@@ -1,9 +1,10 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>What's that character called?</title>
+        <title>What's that symbol called?</title>
         <meta name="robots" content="index,follow">
-        <meta name="description" content="Ever pressed a key on your keyboard and wondered what the character, symbol, or sign's name is? Now you can input any Unicode character and see it's official name!">
+        <meta name="description" content="Ever pressed a key on your keyboard and wondered what the character, symbol, emoji, or sign's name is? Now you can input any Unicode character and see it's official name!">
+        <meta name="keywords" content="symbol,character,emoji,mathematical symbol,math symbol,unicode,symbol name,character name,character set">
         <meta name="geo.country" content="US">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="author" content="Steven Howell">
@@ -22,16 +23,18 @@
     <body>
         <p class="loader"></p>
         <div class="main-content hide">
-            <h1 class="heading">What's that character called?</h1>
-            <h2>Input any character from your keyboard to see its name.</h2>
+            <header aria-label="instructions">
+                <h1 class="heading">What's that symbol called?</h1>
+                <h2>Press any key on your keyboard, or input or paste a character in this text box to see it's name.</h2>
+            </header>
+            <form>
+                <!-- <h2>Or, input or paste a character in this text box to see it's name.</h2> -->
+                <input type="text" id="char-input">
+                <label for="char-input"></label>
+            </form>
             <section class="char-display" aria-label="character name display">
                 <h2 class="char-symbol"></h2>
                 <p class="char-name"></p>
-            </section>
-            <section>
-                <h2>Or, input a character in this text box to see it's name.</h2>
-                <input type="text" id="char-input">
-                <label for="char-input"></label>
             </section>
         </div>
         <footer>
