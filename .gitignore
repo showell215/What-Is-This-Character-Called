@@ -4,3 +4,4 @@ mime.types
 *.log
 node_modules
 dist
+package-lock.json
