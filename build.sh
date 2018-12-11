@@ -19,10 +19,12 @@ if [ -d dist ]; then
 fi
 
 mkdir dist
+mkdir dist/public/
 cp public/index.html dist/
 if [ -d public/ucd ]; then
     cp -r public/ucd dist/
 fi
+cp -r public/scripts dist/public/
 cp -r public/css dist/
 cp -r public/img dist/
 cp  public/*.png dist/
@@ -30,4 +32,5 @@ cp  public/*.svg dist/
 cp  public/*.ico dist/
 cp  public/*.xml dist/
 cp  public/site.webmanifest dist/
-uglifyjs -cm toplevel --verbose --warn ./public/scripts/**/*.js ./public/scripts/*.js -o ./dist/index.min.js
+uglifyjs -cm toplevel --verbose --warn ./public/scripts/**/*.js ./public/scripts/*.js -o ./dist/index.min.js --source-map url=index.min.js.map
+# cp public/scripts/polyfill/codepointat.js public/scripts/index.js dist/
