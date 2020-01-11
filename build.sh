@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 LINT_EXIT_CODE=0
 
 eslint public/scripts/*.js
