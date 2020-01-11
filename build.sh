@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# set -e
+set -e
 
 LINT_EXIT_CODE=0
 
@@ -39,8 +39,8 @@ cp  public/site.webmanifest dist/
 [[ $TRAVIS_BUILD_NUMBER ]] && cache_hash=-$TRAVIS_BUILD_NUMBER
 index_file=index$cache_hash.min.js
 uglifyjs -cm toplevel --verbose --warn ./public/scripts/**/*.js ./public/scripts/*.js -o ./dist/$index_file --source-map url=index.min.js.map
-if [ $? -ne 0 ]; then
-    exit 1
-fi
+# if [ $? -ne 0 ]; then
+#     exit 1
+# fi
 sed -i.bak 's/{{index_file}}/'"${index_file}"'/' dist/index.html && rm dist/index.html.bak
 # cp public/scripts/polyfill/codepointat.js public/scripts/index.js dist/
