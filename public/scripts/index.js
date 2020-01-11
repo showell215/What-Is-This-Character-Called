@@ -1,7 +1,7 @@
 (function () {
 
     var input = '',
-        nonPrintable = [9, 13, 33, 34, 35, 36, 37, 38, 39, 40];
+        nonPrintable = ['9', 'd', '21', '22', '23', '24', '25', '26', '27', '28'];
 
     // convert raw unicode data to a mapping by character code
     function createMapping () {
@@ -19,7 +19,7 @@
 
     function isNonPrintableChar (string, code) {
         // eslint-disable-next-line no-control-regex
-        return /[\x00-\x1F]/.test(string) || nonPrintable.indexOf(code) > -1;
+        return /[\x00-\x1F]/.test(string) || nonPrintable.indexOf(code.toString()) > -1;
     }
     function isMultiByteChar (string) {
         return /[\uD800-\uDFFF]/.test(string);
@@ -27,7 +27,7 @@
 
     function handleInputData (event) {
         charInputElement.value = '';
-        // pasted input is coverd by the 'paste' event. Don't let input event duplicate it 
+        // pasted input is covered by the 'paste' event. Don't let input event duplicate it 
         if (event.inputType === 'insertFromPaste') {
             this.value = input || '';
             return;
@@ -91,7 +91,7 @@
         window.addEventListener('keypress', handleKeyPress);
     }
 
-    // init code that does not depened on elements
+    // init code that does not depend on elements
     var charNameElement, charSymbolElement, loader, mainContent, charInputElement,
         shrug = '¯\\_(ツ)_/¯',
         charMap = {},
