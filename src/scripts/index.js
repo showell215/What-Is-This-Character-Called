@@ -19,7 +19,7 @@
         // the surrogate pair range is used to encode characters of more than 2 bytes. Don't trim them.
         var numberOfSurrogatePairs = (string.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
 
-        return string.slice(0, 1 + numberOfSurrogatePairs);
+        return string.slice(0, 1 + (numberOfSurrogatePairs * 2));
     }
     function handleInputData (event) {
         event.preventDefault();
