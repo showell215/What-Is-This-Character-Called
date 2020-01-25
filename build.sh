@@ -2,11 +2,11 @@
 
 LINT_EXIT_CODE=0
 
-eslint public/scripts/*.js
+eslint src/scripts/*.js
 (( LINT_EXIT_CODE += $?))
-htmlhint public/index.html
+htmlhint src/index.html
 (( LINT_EXIT_CODE += $?))
-stylelint public/css
+stylelint src/css
 (( LINT_EXIT_CODE += $?))
 
 if [ $LINT_EXIT_CODE -ne 0 ]; then
@@ -20,23 +20,23 @@ fi
 
 mkdir dist
 mkdir dist/public/
-cp public/index.html dist/
-if [ -d public/ucd ]; then
-    cp -r public/ucd dist/
+cp src/index.html dist/
+if [ -d src/ucd ]; then
+    cp -r src/ucd dist/
 fi
-cp -r public/scripts dist/public/
-cp -r public/css dist/
-cp -r public/img dist/
-cp  public/*.png dist/
-cp  public/*.svg dist/
-cp  public/*.ico dist/
-cp  public/*.xml dist/
-cp  public/site.webmanifest dist/
+cp -r src/scripts dist/public/
+cp -r src/css dist/
+cp -r src/img dist/
+cp  src/*.png dist/
+cp  src/*.svg dist/
+cp  src/*.ico dist/
+cp  src/*.xml dist/
+cp  src/site.webmanifest dist/
 
 # simple hash on the JS file for cache busting
 [[ $TRAVIS_BUILD_NUMBER ]] && cache_hash=_$TRAVIS_BUILD_NUMBER
 index_file=index$cache_hash.min.js
-uglifyjs -cm toplevel --verbose --warn ./public/scripts/**/*.js ./public/scripts/*.js -o ./dist/$index_file --source-map url="$index_file.map"
+uglifyjs -cm toplevel --verbose --warn ./src/scripts/**/*.js ./src/scripts/*.js -o ./dist/$index_file --source-map url="$index_file.map"
 if [ $? -ne 0 ]; then
     exit 1
 fi

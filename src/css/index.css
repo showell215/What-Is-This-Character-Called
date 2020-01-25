@@ -32,6 +32,7 @@ form {
 }
 
 .char-display {
+  min-height: 120px;
   min-width: 160px;
   max-width: 1000px;
   margin: auto;

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Input any character to see its official Unicode name",
   "scripts": {
+    "dev": "watch 'npm run build' src",
     "build": "./build.sh",
     "deployPrep": "./deployPrep.sh"
   },
@@ -11,7 +12,8 @@
     "htmlhint": "^0.10.1",
     "stylelint": "^9.7.1",
     "stylelint-config-standard": "^18.2.0",
-    "uglify-js": "^3.4.9"
+    "uglify-js": "^3.4.9",
+    "watch": "^1.0.2"
   },
   "repository": {
     "type": "git",
