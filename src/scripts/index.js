@@ -11,6 +11,7 @@
 
             loader.classList.add('hide');
             mainContent.classList.remove('hide');
+            charInputElement.focus();
         }
     }
 
