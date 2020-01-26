@@ -2,7 +2,7 @@
 
 LINT_EXIT_CODE=0
 
-eslint src/scripts/*.js
+eslint src/scripts/*.js --fix
 (( LINT_EXIT_CODE += $?))
 htmlhint src/index.html
 (( LINT_EXIT_CODE += $?))
@@ -23,6 +23,7 @@ mkdir dist/public/
 cp src/index.html dist/
 if [ -d src/ucd ]; then
     cp -r src/ucd dist/
+    cp -r src/emoji dist/
 fi
 cp -r src/scripts dist/public/
 cp -r src/css dist/
