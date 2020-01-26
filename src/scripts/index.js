@@ -1,5 +1,11 @@
 (function () {
     var charNameElement, charSymbolElement, loader, mainContent, charInputElement,
+        REGEX_STR_HIGH_SURROGATE = '[\uD800-\uDBFF]',
+        REGEX_STR_LOW_SURROGATE = '[\uDC00-\uDFFF]',
+        REGEXP_SURROGATE_PAIR = new RegExp(REGEX_STR_HIGH_SURROGATE + REGEX_STR_LOW_SURROGATE, 'g'),
+        REGEXP_LOW_SURROGATE = new RegExp(REGEX_STR_LOW_SURROGATE),
+        REGEXP_ZERO_WIDTH_JOINER = new RegExp('\u200D', 'g'),
+        REGEXP_VARIATION_SELECTOR = new RegExp('[\uFE00-\uFE0F]', 'g'),
         SHRUG = '¯\\_(ツ)_/¯',
         charMap = {},
         mappingRequests = [
@@ -7,19 +13,16 @@
                 nameIndex: 1,
                 done: false,
                 uri: '/ucd/UnicodeData.txt'
-                // cb: function () { createMapping(1); }
             },
             {
                 nameIndex: 2,
                 done: false,
                 uri: '/emoji/emoji-sequences.txt'
-                // cb: function () { createMapping(2); }
             },
             {
                 nameIndex: 2,
                 done: false,
                 uri: '/emoji/emoji-zwj-sequences.txt'
-                // cb: function () { createMapping(2);  }
             }
         ];
 
@@ -65,14 +68,12 @@
                 }
                 var charCodeData = charCodeItem.split(';');
 
-                // console.log(charCodeData[0].toLowerCase() +  ' => ' + charCodeData[nameIndex].split('#')[0].toUpperCase());
                 charMap[charCodeData[0].trim().toLowerCase()] = charCodeData[nameIndex].split('#')[0].trim().toUpperCase();
             });
 
         mappingRequests[index].done = true;
-        console.log(mappingRequests);
-        if (mappingRequests.every(function (req) { console.log(req.done); return req.done; })) {
-            console.log(charMap['1f9d6 1f3fe 200d 2640 fe0f']);
+
+        if (mappingRequests.every(function (req) { return req.done; })) {
             loader.classList.add('hide');
             mainContent.classList.remove('hide');
             charInputElement.focus();
@@ -80,57 +81,51 @@
 
     }
 
-    // eslint-disable-next-line no-unused-vars
-    // function createEmojiMapping () {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //         this.responseText
-    //             .split('\n')
-    //             .forEach(function (charCodeItem) {
-    //                 var charCodeData = charCodeItem.split(';');    
-    //                 charMap[charCodeData[0].toLowerCase()] = charCodeData[2].toUpperCase();
-    //             });
-    //     }
-    // load the emoji variation mapping
-    // if char has 1 surrogate pair
-    //      look in main mapping
-    //  if char has 2 suroogate pairs and no ZWJ
-    //      look in Emoji_Modifier_Sequence mapping
-    // if char has >=2 SPs and SWJ
-    //    look in ZWJ mapping
-    // }
+    function getMultiCodePointKey (multiCodePointChar) {
+        var builtKeyArray = [];
+     
+        for (var i = 0; i < multiCodePointChar.length; i++) {
+            // get the codePoint value for this character
+            var aCodePoint = multiCodePointChar.codePointAt(i);
+            // If this CodePoint is in the surrogate pair range but not part of a pair, discard it, as the codePointAt
+            // implementation already looks ahead 1 additional character to get the correct code point
+            // for surrogate pairs, and leaves an "orphan". See the polyfill implementation from MDN -
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/
+            var codePointString = String.fromCodePoint(aCodePoint);
 
-    /**
-     * A zero-width joiner is used to combine two Unicode characters together to create a new emoji.
-     *  https://unicode.org/Public/emoji/12.1/
-     * @param {string} string 
-     * @returns {boolean}
-     */
-    function hasZeroWidthJoiner (string) {
-        return string.match(/\u200D/);
+            if (codePointString.match(REGEXP_LOW_SURROGATE) && !codePointString.match(REGEXP_SURROGATE_PAIR)) {
+                continue;
+            }
+            // convert to hex since codePointAt returns base 10, but Unicode mapping uses hex
+            builtKeyArray.push(aCodePoint.toString(16));
+        }
+
+        return builtKeyArray.join(' ');
     }
 
-    function trimStringToSingleDisplayCharacter (string) {
-        // test - ㊗️ -- FE0F is some special modifier that goes after this
-        // variation selector - https://codepoints.net/U+FE0F?lang=en
-        // If that is a symbol, dingbat or emoji, U+FE0F forces it to be rendered as a colorful image as compared to a monochrome text variant. 
-        console.log('orig string', string);
-        // the surrogate pair range is used to encode characters of more than 2 bytes. Don't trim them.
-        var numberOfSurrogatePairs = (string.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
-        console.log('surrogate pairs? ', numberOfSurrogatePairs);
-        console.log('hasZeroWidthJoiner', hasZeroWidthJoiner(string));
-        var trimmedString =  string.slice(0, 1 + (numberOfSurrogatePairs * 2));
-        console.log(trimmedString);
-        return trimmedString;
+    function getStringObject (string) {
+        return {
+            string: string,
+            numberOfSurrogatePairs:  (string.match(REGEXP_SURROGATE_PAIR) || []).length,
+            numberOfZWJs: (string.match(REGEXP_ZERO_WIDTH_JOINER) || []).length,
+            numberOfVaritionSelectors: (string.match(REGEXP_VARIATION_SELECTOR) || []).length
+        };
     }
+
     function handleInputData (event) {
         event.preventDefault();
-        this.value = trimStringToSingleDisplayCharacter(this.value);
-        setCharNameDisplay(this.value, this.value.codePointAt(0));
+        var stringObject = getStringObject(this.value);
+
+        this.value = stringObject.string.slice(0, 1 + (stringObject.numberOfSurrogatePairs * 2) + stringObject.numberOfZWJs + stringObject.numberOfVaritionSelectors);
+        
+        var charMapKey = stringObject.numberOfSurrogatePairs > 1 ? getMultiCodePointKey(this.value) : getFourDigitHex(this.value.codePointAt(0));
+
+        setCharNameDisplay(this.value, charMapKey);
     }
 
-    function setCharNameDisplay (char, charPoint) {
+    function setCharNameDisplay (char, charMapKey) {
         charSymbolElement.innerText = char;
-        charNameElement.innerText = charMap[getFourDigitHex(charPoint)] || SHRUG;
+        charNameElement.innerText = charMap[charMapKey] || SHRUG;
     }
 
     function clearInput () {
