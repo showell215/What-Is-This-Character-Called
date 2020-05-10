@@ -35,7 +35,7 @@ cp  src/*.xml dist/
 cp  src/site.webmanifest dist/
 
 # simple hash on the JS file for cache busting
-[[ $TRAVIS_BUILD_NUMBER ]] && cache_hash=_$TRAVIS_BUILD_NUMBER
+[[ $BUILD_ID ]] && cache_hash=_$BUILD_ID
 index_file=index$cache_hash.min.js
 uglifyjs -cm toplevel --verbose --warn ./src/scripts/**/*.js ./src/scripts/*.js -o ./dist/$index_file --source-map url="$index_file.map"
 if [ $? -ne 0 ]; then
