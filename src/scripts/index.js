@@ -37,13 +37,6 @@
         http.send();
     });
 
-    // init page, or wait for DOMContentLoaded to init page
-    if (document.readyState !== 'loading') {
-        init();
-    } else {
-        document.addEventListener('DOMContentLoaded', init);
-    }
-
     // init code that depends on elements
     function init () {
         charNameElement = document.querySelector('.char-name');
@@ -140,4 +133,6 @@
 
         return num;
     }
+
+    init();
 })();
